@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: .
+    command: ./build
+    volumes:
+      - .:/code
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb-local
+    env_file:
+      - config.conf
+
+  mongodb-local:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+
+  test:
+    build: .
+    command: ./testing.test
+    volumes:
+      - .:/code
+    depends_on:
+      - mongodb-local
+    env_file:
+      - config.conf
+
+volumes: 
+  mongodb_data:
