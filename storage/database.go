@@ -2,9 +2,10 @@ package storage
 
 import (
 	"context"
-	"graphyy/internal"
 	"log"
 	"time"
+
+	"github.com/dakaii/superduperpotato/internal"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

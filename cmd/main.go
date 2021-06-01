@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"graphyy/controller"
-	"graphyy/internal"
-	"graphyy/service"
-	"graphyy/storage"
 	"net/http"
+
+	"github.com/dakaii/superduperpotato/controller"
+	"github.com/dakaii/superduperpotato/internal"
+	"github.com/dakaii/superduperpotato/service"
+	"github.com/dakaii/superduperpotato/storage"
 )
 
 func main() {

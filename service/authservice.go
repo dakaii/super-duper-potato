@@ -3,10 +3,11 @@ package service
 import (
 	"context"
 	"fmt"
-	"graphyy/model"
-	"graphyy/storage"
 	"log"
 	"time"
+
+	"github.com/dakaii/superduperpotato/model"
+	"github.com/dakaii/superduperpotato/storage"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

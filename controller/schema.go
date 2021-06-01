@@ -2,7 +2,8 @@ package controller
 
 import (
 	"errors"
-	"graphyy/model"
+
+	"github.com/dakaii/superduperpotato/model"
 
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/gqlerrors"

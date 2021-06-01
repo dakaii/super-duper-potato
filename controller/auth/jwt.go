@@ -3,9 +3,10 @@ package auth
 import (
 	"errors"
 	"fmt"
-	"graphyy/internal"
-	"graphyy/model"
 	"time"
+
+	"github.com/dakaii/superduperpotato/internal"
+	"github.com/dakaii/superduperpotato/model"
 
 	"github.com/dgrijalva/jwt-go"
 )

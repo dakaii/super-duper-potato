@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"graphyy/controller/auth"
-	"graphyy/service"
+	"github.com/dakaii/superduperpotato/controller/auth"
+	"github.com/dakaii/superduperpotato/service"
 )
 
 // Controllers contains all the controllers

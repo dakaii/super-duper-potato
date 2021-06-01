@@ -2,8 +2,9 @@ package auth
 
 import (
 	"errors"
-	"graphyy/model"
-	"graphyy/service"
+
+	"github.com/dakaii/superduperpotato/model"
+	"github.com/dakaii/superduperpotato/service"
 
 	"golang.org/x/crypto/bcrypt"
 )

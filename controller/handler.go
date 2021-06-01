@@ -3,10 +3,11 @@ package controller
 import (
 	"context"
 	"fmt"
-	"graphyy/controller/auth"
-	"graphyy/model"
 	"net/http"
 	"strings"
+
+	"github.com/dakaii/superduperpotato/controller/auth"
+	"github.com/dakaii/superduperpotato/model"
 
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/handler"
