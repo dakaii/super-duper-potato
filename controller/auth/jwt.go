@@ -71,3 +71,24 @@ func keyExists(dict map[string]interface{}, key string) bool {
 	val, ok := dict[key]
 	return ok && val != nil
 }
+
+// func authorization(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+//         token := r.Header.Get("Authorization")
+//         user, _ := verifyToken(token)
+//         r.Header.Set("currentUser", user)
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
+
+// func verifyToken(token string) (model.User, error) {
+// 	var user model.User
+// 	var err error
+// 	splitToken := strings.Split(token, "Bearer ")
+// 	if len(splitToken) >= 2 {
+// 		token := splitToken[1]
+// 		user, err = auth.VerifyJWT(token)
+// 		fmt.Printf("%+v\n", err)
+// 	}
+// 	return user, err
+// }

@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/aws/aws-sdk-go v1.38.51 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-chi/chi/v5 v5.0.7 // indirect
 	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/handler v0.2.3
 	github.com/klauspost/compress v1.12.3 // indirect

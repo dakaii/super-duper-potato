@@ -1,7 +1,8 @@
 package auth
 
 import (
-	"errors"
+	"encoding/json"
+	"net/http"
 
 	"github.com/dakaii/superduperpotato/model"
 	"github.com/dakaii/superduperpotato/service"
@@ -28,36 +29,55 @@ func InitController(authService *service.AuthService) *Controller {
 }
 
 // Signup lets users sign up for this application and returns a jwt.
-func (c *Controller) Signup(user model.User) (model.AuthToken, error) {
-	if !isValidUsername(user.Username) {
-		return model.AuthToken{}, errors.New("invalid username")
-	}
-	existingUser := c.authService.GetExistingUser(user.Username)
-	if existingUser.Username != "" {
-		return model.AuthToken{}, errors.New("this username is already in use")
-	}
-	user, err := c.authService.SaveUser(user)
+func (c *Controller) Signup(w http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var newUser model.User
+	err := decoder.Decode(&newUser)
 	if err != nil {
-		return model.AuthToken{}, err
+		panic(err)
+	}
+	if !isValidUsername(newUser.Username) {
+		http.Error(w, "invalid username", http.StatusBadRequest)
+		return
+	}
+	existingUser := c.authService.GetExistingUser(newUser.Username)
+	if existingUser.Username != "" {
+		http.Error(w, "this username is already in use", http.StatusBadRequest)
+		return
+	}
+	createdUser, err := c.authService.SaveUser(newUser)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
-	token := generateJWT(user)
-	return token, nil
+	token := generateJWT(createdUser)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(token)
 }
 
 // Login returns a jwt.
-func (c *Controller) Login(user model.User) (model.AuthToken, error) {
+func (c *Controller) Login(w http.ResponseWriter, req *http.Request) {
+	decoder := json.NewDecoder(req.Body)
+	var user model.User
+	err := decoder.Decode(&user)
+	if err != nil {
+		panic(err)
+	}
 	existingUser := c.authService.GetExistingUser(user.Username)
 	if existingUser.Username == "" {
-		return model.AuthToken{}, errors.New("no user found with the inputted username")
+		w.Write([]byte("no user found with the inputted username"))
+		return
 	}
 	isValid := checkPasswordHash(user.Password, existingUser.Password)
 	if !isValid {
-		return model.AuthToken{}, errors.New("invalid credentials")
+		w.Write([]byte("Invalid credentials"))
+		return
 	}
 
 	token := generateJWT(user)
-	return token, nil
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(token)
 }
 
 func checkPasswordHash(password, hash string) bool {

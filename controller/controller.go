@@ -7,12 +7,12 @@ import (
 
 // Controllers contains all the controllers
 type Controllers struct {
-	authController *auth.Controller
+	AuthController *auth.Controller
 }
 
 // InitControllers returns a new Controllers
 func InitControllers(services *service.Services) *Controllers {
 	return &Controllers{
-		authController: auth.InitController(services.AuthService),
+		AuthController: auth.InitController(services.AuthService),
 	}
 }
